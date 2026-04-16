@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
-<title>Confirmar Agendamentos · Nathália Machado</title>
+<title>Confirmar Agendamentos · Clínica Medvance</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
@@ -305,7 +305,14 @@
     <span class="date-label">Selecione o dia</span>
     <div class="date-controls">
       <input type="date" id="datePicker">
-      <button class="btn-today" onclick="setToday()">Amanhã</button>
+      <div style="display:flex;gap:.4rem">
+        <button class="btn-today" onclick="changeDay(-1)" title="Dia anterior">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <button class="btn-today" onclick="changeDay(1)" title="Próximo dia">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      </div>
     </div>
   </div>
 
@@ -477,6 +484,21 @@ async function loadDay(dateStr) {
         <small style="color:var(--ink-muted)">${err.message}</small>
       </div>`;
   }
+}
+
+// Avança ou volta um dia
+function changeDay(offset) {
+  const picker = document.getElementById('datePicker');
+  if (!picker.value) { setToday(); return; }
+  const [y, m, d] = picker.value.split('-').map(Number);
+  const date = new Date(y, m - 1, d);
+  date.setDate(date.getDate() + offset);
+  const ny = date.getFullYear();
+  const nm = String(date.getMonth() + 1).padStart(2, '0');
+  const nd = String(date.getDate()).padStart(2, '0');
+  const val = `${ny}-${nm}-${nd}`;
+  picker.value = val;
+  loadDay(val);
 }
 
 // Define amanhã no date picker
