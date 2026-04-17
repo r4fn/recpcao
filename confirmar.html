@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Confirmar Agendamentos · Clínica Medvance</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --forest:     #5e7252;
+    --forest-light: #8a9e7e;
+    --sage-pale:  #eef0eb;
+    --honey:      #c9a96e;
+    --honey-pale: #f5efe4;
+    --cream:      #faf8f0;
+    --cream-alt:  #f0ede4;
+    --ink:        #2e2a24;
+    --ink-soft:   #5a5248;
+    --ink-muted:  #73695c;
+    --white:      #fdfaf6;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  header {
+    background: var(--forest);
+    color: var(--white);
+    padding: 1.8rem 1.5rem 1.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 80% 0%, #8a9e7e33 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .header-inner {
+    max-width: 680px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  .back-link {
+    color: rgba(255,255,255,.65);
+    text-decoration: none;
+    font-size: .8rem;
+    display: flex;
+    align-items: center;
+    gap: .3rem;
+    transition: color .2s;
+    white-space: nowrap;
+  }
+  .back-link:hover { color: white; }
+  .header-text h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.4rem, 4vw, 2rem);
+    font-weight: 600;
+    line-height: 1.2;
+  }
+  .header-text h1 em { font-style: italic; color: #e2c99a; }
+  .header-text p {
+    font-size: .82rem;
+    color: #b8c9af;
+    margin-top: .25rem;
+  }
+
+  /* MAIN */
+  .main {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 1.5rem;
+  }
+
+  /* DATE PICKER */
+  .date-section {
+    background: var(--white);
+    border: 1px solid var(--cream-alt);
+    border-radius: 16px;
+    padding: 1.2rem 1.4rem;
+    margin-bottom: 1.25rem;
+    box-shadow: 0 1px 6px rgba(0,0,0,.04);
+  }
+  .date-label {
+    font-size: .75rem;
+    font-weight: 500;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin-bottom: .6rem;
+    display: block;
+  }
+  .date-controls {
+    display: flex;
+    gap: .6rem;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  input[type="date"] {
+    font-family: 'DM Sans', sans-serif;
+    font-size: .95rem;
+    color: var(--ink);
+    background: var(--cream);
+    border: 1.5px solid var(--cream-alt);
+    border-radius: 10px;
+    padding: .55rem .9rem;
+    cursor: pointer;
+    transition: border-color .2s;
+    flex: 1;
+    min-width: 160px;
+  }
+  input[type="date"]:focus {
+    outline: none;
+    border-color: var(--forest-light);
+  }
+  .btn-today {
+    font-family: 'DM Sans', sans-serif;
+    font-size: .82rem;
+    font-weight: 500;
+    background: var(--sage-pale);
+    color: var(--forest);
+    border: 1.5px solid var(--forest-light);
+    border-radius: 10px;
+    padding: .55rem 1rem;
+    cursor: pointer;
+    transition: background .2s;
+    white-space: nowrap;
+  }
+  .btn-today:hover { background: #d8e8d0; }
+
+  /* STATUS */
+  .status {
+    text-align: center;
+    padding: 2.5rem 1rem;
+    color: var(--ink-muted);
+    font-size: .9rem;
+  }
+  .status-icon { font-size: 2rem; margin-bottom: .5rem; }
+  .spinner {
+    width: 28px; height: 28px;
+    border: 3px solid var(--cream-alt);
+    border-top-color: var(--forest);
+    border-radius: 50%;
+    animation: spin .7s linear infinite;
+    margin: 0 auto .75rem;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* DAY HEADER */
+  .day-header {
+    display: flex;
+    align-items: baseline;
+    gap: .5rem;
+    margin-bottom: 1rem;
+  }
+  .day-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--forest);
+  }
+  .day-count {
+    font-size: .8rem;
+    color: var(--ink-muted);
+  }
+
+  /* PATIENT CARDS */
+  .patients-list {
+    display: flex;
+    flex-direction: column;
+    gap: .7rem;
+  }
+
+  .patient-card {
+    background: var(--white);
+    border: 1.5px solid var(--cream-alt);
+    border-radius: 14px;
+    padding: 1rem 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    box-shadow: 0 1px 6px rgba(0,0,0,.04);
+    transition: border-color .2s, box-shadow .2s, transform .15s;
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+  }
+  .patient-card:hover {
+    border-color: #5e7252;
+    box-shadow: 0 4px 16px rgba(94,114,82,.15);
+    transform: translateY(-2px);
+  }
+  .patient-card:active { transform: translateY(0); }
+
+  .patient-info { flex: 1; min-width: 0; }
+  .patient-time {
+    font-size: .78rem;
+    font-weight: 500;
+    color: var(--forest);
+    letter-spacing: .04em;
+    margin-bottom: .2rem;
+    display: flex;
+    align-items: center;
+    gap: .3rem;
+  }
+  .patient-name {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--ink);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .patient-phone {
+    font-size: .78rem;
+    color: var(--ink-muted);
+    margin-top: .15rem;
+  }
+
+  .whatsapp-btn {
+    flex-shrink: 0;
+    background: var(--sage-pale);
+    border: 1.5px solid var(--forest-light);
+    border-radius: 10px;
+    padding: .55rem .9rem;
+    display: flex;
+    align-items: center;
+    gap: .4rem;
+    font-size: .8rem;
+    font-weight: 500;
+    color: var(--forest);
+    white-space: nowrap;
+  }
+
+  /* NO PHONE WARNING */
+  .no-phone {
+    background: var(--honey-pale);
+    border-color: #e2c99a;
+    cursor: default;
+  }
+  .no-phone:hover {
+    transform: none;
+    box-shadow: 0 1px 6px rgba(0,0,0,.04);
+    border-color: #e2c99a;
+  }
+  .no-phone-badge {
+    font-size: .72rem;
+    background: var(--honey-pale);
+    border: 1px solid #e2c99a;
+    color: var(--honey);
+    border-radius: 6px;
+    padding: .2rem .5rem;
+    white-space: nowrap;
+  }
+
+  /* FADE IN */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .fade { animation: fadeUp .4s ease both; }
+
+  footer {
+    text-align: center;
+    padding: 2rem 1.5rem;
+    font-size: .75rem;
+    color: var(--ink-muted);
+    border-top: 1px solid var(--cream-alt);
+    margin-top: 1rem;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a href="index.html" class="back-link">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      Voltar
+    </a>
+    <div class="header-text">
+      <h1>Confirmar <em>Agendamentos</em></h1>
+      <p>Selecione o dia e clique no paciente para enviar a confirmação via WhatsApp</p>
+    </div>
+  </div>
+</header>
+
+<div class="main">
+
+  <!-- SELETOR DE DATA -->
+  <div class="date-section fade">
+    <span class="date-label">Selecione o dia</span>
+    <div class="date-controls">
+      <input type="date" id="datePicker">
+      <div style="display:flex;gap:.4rem">
+        <button class="btn-today" onclick="changeDay(-1)" title="Dia anterior">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <button class="btn-today" onclick="changeDay(1)" title="Próximo dia">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- LISTA DE PACIENTES -->
+  <div id="content">
+    <div class="status">
+      <div class="status-icon">📅</div>
+      Selecione uma data para ver os agendamentos do dia.
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  Nathália Machado · Ferramenta interna de confirmação de agendamentos
+</footer>
+
+<script>
+const API_KEY    = 'AIzaSyDsNeOZ8bSWBGCgZ8cN9ZCo-EzmMoU7eoU';
+const CALENDAR_ID = 'fononamachado@gmail.com';
+
+const DIAS = ['Domingo','Segunda-Feira','Terça-Feira','Quarta-Feira','Quinta-Feira','Sexta-Feira','Sábado'];
+const MESES = ['janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'];
+
+// Formata data como DD/MM/YYYY
+function formatDate(dateStr) {
+  const [y, m, d] = dateStr.split('-');
+  return `${d}/${m}/${y}`;
+}
+
+// Dia da semana por string YYYY-MM-DD (sem fuso)
+function getDiaSemana(dateStr) {
+  const [y, m, d] = dateStr.split('-').map(Number);
+  return DIAS[new Date(y, m - 1, d).getDay()];
+}
+
+// Extrai nome e telefone do título: "João Pedro 15997020094"
+function parseTitle(title) {
+  const match = title.trim().match(/^(.*?)\s+(\d{8,13})$/);
+  if (match) {
+    return { name: match[1].trim(), phone: match[2] };
+  }
+  return { name: title.trim(), phone: null };
+}
+
+// Formata telefone para wa.me (adiciona 55 se necessário)
+function formatPhone(phone) {
+  let p = phone.replace(/\D/g, '');
+  if (!p.startsWith('55')) p = '55' + p;
+  return p;
+}
+
+// Formata hora HH:MM a partir de dateTime ISO
+function formatTime(dateTimeStr) {
+  if (!dateTimeStr) return '';
+  // Evento pode ser "2026-04-17T08:00:00-03:00" ou "2026-04-17" (dia inteiro)
+  const match = dateTimeStr.match(/T(\d{2}:\d{2})/);
+  return match ? match[1] : '';
+}
+
+// Monta link WhatsApp
+function buildWhatsApp(phone, name, dateStr, time) {
+  const diaSemana = getDiaSemana(dateStr);
+  const dataFormatada = formatDate(dateStr);
+  const msg = `*_ASSESSORIA - RAFAEL:_* Olá! Tudo bem?\nEstou passando para confirmar o atendimento\nPaciente: ${name}\nData: ${diaSemana}, ${dataFormatada}\nHorário: ${time}\n\n> Caso haja necessidade de desmarcar, é importante avisar com pelo menos 12 horas de antecedência. Do contrário, será necessário cobrar o valor integral da sessão. Obrigado`;
+  const encoded = encodeURIComponent(msg);
+  return `https://wa.me/${formatPhone(phone)}?text=${encoded}`;
+}
+
+// Busca eventos na Google Calendar API
+async function fetchEvents(dateStr) {
+  const [y, m, d] = dateStr.split('-').map(Number);
+  const timeMin = new Date(y, m - 1, d, 0, 0, 0).toISOString();
+  const timeMax = new Date(y, m - 1, d, 23, 59, 59).toISOString();
+
+  const url = `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(CALENDAR_ID)}/events`
+    + `?key=${API_KEY}`
+    + `&timeMin=${encodeURIComponent(timeMin)}`
+    + `&timeMax=${encodeURIComponent(timeMax)}`
+    + `&singleEvents=true`
+    + `&orderBy=startTime`;
+
+  const res = await fetch(url);
+  if (!res.ok) throw new Error(`Erro ${res.status}: ${res.statusText}`);
+  const data = await res.json();
+  return data.items || [];
+}
+
+// Renderiza a lista de pacientes
+function renderPatients(events, dateStr) {
+  const container = document.getElementById('content');
+
+  if (events.length === 0) {
+    container.innerHTML = `
+      <div class="status fade">
+        <div class="status-icon">🗓️</div>
+        Nenhum agendamento encontrado para este dia.
+      </div>`;
+    return;
+  }
+
+  const diaSemana = getDiaSemana(dateStr);
+  const [y, m, d] = dateStr.split('-');
+  const dataFormatada = `${d} de ${MESES[parseInt(m)-1]} de ${y}`;
+
+  let html = `
+    <div class="day-header fade">
+      <span class="day-title">${diaSemana}</span>
+      <span class="day-count">${dataFormatada} · ${events.length} agendamento${events.length > 1 ? 's' : ''}</span>
+    </div>
+    <div class="patients-list">`;
+
+  events.forEach((ev, i) => {
+    const title = ev.summary || 'Sem título';
+    const { name, phone } = parseTitle(title);
+    const startDt = ev.start?.dateTime || ev.start?.date || '';
+    const time = formatTime(startDt);
+
+    if (phone) {
+      const waUrl = buildWhatsApp(phone, name, dateStr, time);
+      html += `
+        <a href="${waUrl}" target="_blank" class="patient-card fade" style="animation-delay:${i * 0.05}s">
+          <div class="patient-info">
+            <div class="patient-time">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              ${time || 'Horário não definido'}
+            </div>
+            <div class="patient-name">${name}</div>
+            <div class="patient-phone">${phone}</div>
+          </div>
+          <div class="whatsapp-btn">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.14 12 19.79 19.79 0 0 1 1.07 3.4 2 2 0 0 1 3.04 1.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21 16.92z"/></svg>
+            Confirmar
+          </div>
+        </a>`;
+    } else {
+      html += `
+        <div class="patient-card no-phone fade" style="animation-delay:${i * 0.05}s">
+          <div class="patient-info">
+            <div class="patient-time">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              ${time || 'Horário não definido'}
+            </div>
+            <div class="patient-name">${name}</div>
+            <div class="patient-phone" style="color:#c9a96e">Sem telefone na agenda</div>
+          </div>
+          <div class="no-phone-badge">Sem número</div>
+        </div>`;
+    }
+  });
+
+  html += `</div>`;
+  container.innerHTML = html;
+}
+
+// Carrega eventos para a data selecionada
+async function loadDay(dateStr) {
+  const container = document.getElementById('content');
+  container.innerHTML = `<div class="status"><div class="spinner"></div>Buscando agendamentos...</div>`;
+
+  try {
+    const events = await fetchEvents(dateStr);
+    renderPatients(events, dateStr);
+  } catch (err) {
+    container.innerHTML = `
+      <div class="status">
+        <div class="status-icon">⚠️</div>
+        Erro ao buscar agenda.<br>
+        <small style="color:var(--ink-muted)">${err.message}</small>
+      </div>`;
+  }
+}
+
+// Avança ou volta um dia
+function changeDay(offset) {
+  const picker = document.getElementById('datePicker');
+  if (!picker.value) { setToday(); return; }
+  const [y, m, d] = picker.value.split('-').map(Number);
+  const date = new Date(y, m - 1, d);
+  date.setDate(date.getDate() + offset);
+  const ny = date.getFullYear();
+  const nm = String(date.getMonth() + 1).padStart(2, '0');
+  const nd = String(date.getDate()).padStart(2, '0');
+  const val = `${ny}-${nm}-${nd}`;
+  picker.value = val;
+  loadDay(val);
+}
+
+// Define amanhã no date picker
+function setToday() {
+  const tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  const y = tomorrow.getFullYear();
+  const m = String(tomorrow.getMonth() + 1).padStart(2, '0');
+  const d = String(tomorrow.getDate()).padStart(2, '0');
+  const val = `${y}-${m}-${d}`;
+  document.getElementById('datePicker').value = val;
+  loadDay(val);
+}
+
+// Listener do date picker
+document.getElementById('datePicker').addEventListener('change', (e) => {
+  if (e.target.value) loadDay(e.target.value);
+});
+
+// Carrega hoje automaticamente ao abrir
+setToday();
+</script>
+
+</body>
+</html>
