@@ -257,6 +257,7 @@
 const API_KEY     = 'AIzaSyDsNeOZ8bSWBGCgZ8cN9ZCo-EzmMoU7eoU';
 const CALENDAR_ID = 'fononamachado@gmail.com';
 const SHEET_URL   = 'https://script.google.com/macros/s/AKfycbz-bUTC-ZzKd3I92t33_VrQb-cOeEYpKwkVCzx_vTfKwilglmRcqPvYkLoYSa61Z2_R/exec';
+const SHEET_ID    = '1125zutbizTXxUtkYu9-Nz1JhXy85OIfrauvC5C1I8iw';
 
 const DIAS  = ['Domingo','Segunda-Feira','Terça-Feira','Quarta-Feira','Quinta-Feira','Sexta-Feira','Sábado'];
 const MESES = ['janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'];
@@ -295,7 +296,13 @@ function saveStatus(dateStr, name, phone, status) {
   fetch(url).catch(() => {});
 }
 
-const SHEET_ID = '1125zutbizTXxUtkYu9-Nz1JhXy85OIfrauvC5C1I8iw';
+// Normaliza data para YYYY-MM-DD independente do formato vindo do Sheets
+function normalizeDate(val) {
+  if (/^\d{4}-\d{2}-\d{2}$/.test(val)) return val;
+  const m = val.match(/^(\d{2})\/(\d{2})\/(\d{4})/);
+  if (m) return `${m[3]}-${m[2]}-${m[1]}`;
+  return val;
+}
 
 // Busca status direto da Sheets API v4 (sem CORS issues)
 async function loadStatusInBackground(dateStr) {
@@ -306,10 +313,9 @@ async function loadStatusInBackground(dateStr) {
     const data  = await res.json();
     const rows  = data.values || [];
     statusCache = {};
-    // Linha 0 = cabeçalho, pula
     for (let i = 1; i < rows.length; i++) {
       const [date, name, , status] = rows[i];
-      if (date === dateStr && name && status) {
+      if (normalizeDate(String(date || '')) === dateStr && name && status) {
         statusCache[name] = status;
       }
     }
