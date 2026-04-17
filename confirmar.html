@@ -377,7 +377,7 @@ function formatTime(dateTimeStr) {
 function buildWhatsApp(phone, name, dateStr, time) {
   const diaSemana = getDiaSemana(dateStr);
   const dataFormatada = formatDate(dateStr);
-  const msg = `*_ASSESSORIA - RAFAEL:_* Olá! Tudo bem?\nEstou passando para confirmar o atendimento\nPaciente: ${name}\nData: ${diaSemana}, ${dataFormatada}\nHorário: ${time}\n\n> Caso haja necessidade de desmarcar, é importante avisar com pelo menos 12 horas de antecedência. Do contrário, será necessário cobrar o valor integral da sessão. Obrigado`;
+  const msg = `*_ASSESSORIA - RAFAEL:_*\nOlá! Tudo bem?\nEstou passando para confirmar o atendimento\nPaciente: ${name}\nData: ${diaSemana}, ${dataFormatada}\nHorário: ${time}\n\n> Caso haja necessidade de desmarcar, é importante avisar com pelo menos 12 horas de antecedência. Do contrário, será necessário cobrar o valor integral da sessão. Obrigado\n\nResponda: *1* para Confirmar · *2* para Remarcar · *3* para Cancelar`;
   const encoded = encodeURIComponent(msg);
   return `https://wa.me/${formatPhone(phone)}?text=${encoded}`;
 }
