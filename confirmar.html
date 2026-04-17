@@ -256,7 +256,7 @@
 <script>
 const API_KEY     = 'AIzaSyDsNeOZ8bSWBGCgZ8cN9ZCo-EzmMoU7eoU';
 const CALENDAR_ID = 'fononamachado@gmail.com';
-const SHEET_URL   = 'https://script.google.com/macros/s/AKfycbz-bUTC-ZzKd3I92t33_VrQb-cOeEYpKwkVCzx_vTfKwilglmRcqPvYkLoYSa61Z2_R/exec';
+const SHEET_URL   = 'https://script.google.com/macros/s/AKfycbz-bUTC-ZzKd3I92t33_VrQb-cOeEYpKwkVCzx_VTfKwilglmRcqPvYkLoYSa61Z2_R/exec';
 
 const DIAS  = ['Domingo','Segunda-Feira','Terça-Feira','Quarta-Feira','Quinta-Feira','Sexta-Feira','Sábado'];
 const MESES = ['janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'];
@@ -295,20 +295,27 @@ function saveStatus(dateStr, name, phone, status) {
   fetch(url).catch(() => {});
 }
 
-// Busca status da planilha em segundo plano e aplica nos cards já renderizados
+const SHEET_ID = '1125zutbizTXxUtkYu9-Nz1JhXy85OIfrauvC5C1I8iw';
+
+// Busca status direto da Sheets API v4 (sem CORS issues)
 async function loadStatusInBackground(dateStr) {
   try {
-    const res  = await fetch(`${SHEET_URL}?action=get&date=${encodeURIComponent(dateStr)}`);
-    const data = await res.json();
-    if (!data.ok) return;
-    statusCache = data.data || {};
-    // Aplica nos cards já na tela
-    document.querySelectorAll('.patient-card[data-name]').forEach(card => {
-      const name   = card.dataset.name;
-      const status = statusCache[name] || '';
-      applyStatus(card, name, dateStr, status, false);
-    });
-  } catch (e) {}
+    const range = encodeURIComponent('Status!A:D');
+    const url   = `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${range}?key=${API_KEY}`;
+    const res   = await fetch(url);
+    const data  = await res.json();
+    const rows  = data.values || [];
+    statusCache = {};
+    // Linha 0 = cabeçalho, pula
+    for (let i = 1; i < rows.length; i++) {
+      const [date, name, , status] = rows[i];
+      if (date === dateStr && name && status) {
+        statusCache[name] = status;
+      }
+    }
+  } catch (e) {
+    statusCache = {};
+  }
 }
 
 function applyStatus(card, name, dateStr, status, save) {
