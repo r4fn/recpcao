@@ -31,7 +31,6 @@
     min-height: 100vh;
   }
 
-  /* HEADER */
   header {
     background: var(--forest);
     color: var(--white);
@@ -71,20 +70,10 @@
     line-height: 1.2;
   }
   .header-text h1 em { font-style: italic; color: #e2c99a; }
-  .header-text p {
-    font-size: .82rem;
-    color: #b8c9af;
-    margin-top: .25rem;
-  }
+  .header-text p { font-size: .82rem; color: #b8c9af; margin-top: .25rem; }
 
-  /* MAIN */
-  .main {
-    max-width: 680px;
-    margin: 0 auto;
-    padding: 1.5rem;
-  }
+  .main { max-width: 680px; margin: 0 auto; padding: 1.5rem; }
 
-  /* DATE PICKER */
   .date-section {
     background: var(--white);
     border: 1px solid var(--cream-alt);
@@ -102,12 +91,7 @@
     margin-bottom: .6rem;
     display: block;
   }
-  .date-controls {
-    display: flex;
-    gap: .6rem;
-    align-items: center;
-    flex-wrap: wrap;
-  }
+  .date-controls { display: flex; gap: .6rem; align-items: center; flex-wrap: wrap; }
   input[type="date"] {
     font-family: 'DM Sans', sans-serif;
     font-size: .95rem;
@@ -121,14 +105,9 @@
     flex: 1;
     min-width: 160px;
   }
-  input[type="date"]:focus {
-    outline: none;
-    border-color: var(--forest-light);
-  }
+  input[type="date"]:focus { outline: none; border-color: var(--forest-light); }
   .btn-nav {
     font-family: 'DM Sans', sans-serif;
-    font-size: .82rem;
-    font-weight: 500;
     background: var(--sage-pale);
     color: var(--forest);
     border: 1.5px solid var(--forest-light);
@@ -141,45 +120,30 @@
   }
   .btn-nav:hover { background: #d8e8d0; }
 
-  /* LOADING / EMPTY */
-  .status {
+  .status-msg {
     text-align: center;
     padding: 2.5rem 1rem;
     color: var(--ink-muted);
     font-size: .9rem;
   }
   .status-icon { font-size: 2rem; margin-bottom: .5rem; }
-  .spinner {
-    width: 28px; height: 28px;
-    border: 3px solid var(--cream-alt);
+  .spinner-sm {
+    width: 16px; height: 16px;
+    border: 2px solid var(--cream-alt);
     border-top-color: var(--forest);
     border-radius: 50%;
     animation: spin .7s linear infinite;
-    margin: 0 auto .75rem;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: .4rem;
   }
   @keyframes spin { to { transform: rotate(360deg); } }
 
-  /* DAY HEADER */
-  .day-header {
-    display: flex;
-    align-items: baseline;
-    gap: .5rem;
-    margin-bottom: 1rem;
-  }
-  .day-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.4rem;
-    font-weight: 600;
-    color: var(--forest);
-  }
+  .day-header { display: flex; align-items: baseline; gap: .5rem; margin-bottom: 1rem; }
+  .day-title { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 600; color: var(--forest); }
   .day-count { font-size: .8rem; color: var(--ink-muted); }
 
-  /* PATIENT CARD */
-  .patients-list {
-    display: flex;
-    flex-direction: column;
-    gap: .7rem;
-  }
+  .patients-list { display: flex; flex-direction: column; gap: .7rem; }
 
   .patient-card {
     background: var(--white);
@@ -190,112 +154,61 @@
     align-items: center;
     gap: .75rem;
     box-shadow: 0 1px 6px rgba(0,0,0,.04);
-    transition: border-color .2s, box-shadow .2s;
+    transition: border-color .2s, background .2s;
   }
-
-  /* status border colors */
-  .patient-card.s-confirmado  { border-color: #5e7252; background: #f4f9f2; }
-  .patient-card.s-cancelado   { border-color: #c0392b; background: #fdf4f3; }
-  .patient-card.s-reagendar   { border-color: #c9a96e; background: var(--honey-pale); }
+  .patient-card.s-confirmado { border-color: #5e7252; background: #f4f9f2; }
+  .patient-card.s-cancelado  { border-color: #c0392b; background: #fdf4f3; }
+  .patient-card.s-reagendar  { border-color: #c9a96e; background: var(--honey-pale); }
 
   .patient-info { flex: 1; min-width: 0; }
   .patient-time {
-    font-size: .75rem;
-    font-weight: 500;
-    color: var(--forest);
-    letter-spacing: .04em;
-    margin-bottom: .2rem;
-    display: flex;
-    align-items: center;
-    gap: .3rem;
+    font-size: .75rem; font-weight: 500; color: var(--forest);
+    letter-spacing: .04em; margin-bottom: .2rem;
+    display: flex; align-items: center; gap: .3rem;
   }
-  .patient-name {
-    font-size: .95rem;
-    font-weight: 500;
-    color: var(--ink);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
+  .patient-name { font-size: .95rem; font-weight: 500; color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .patient-phone { font-size: .75rem; color: var(--ink-muted); margin-top: .1rem; }
 
-  /* ACTIONS: whatsapp + status buttons */
-  .card-actions {
-    display: flex;
-    flex-direction: column;
-    gap: .4rem;
-    flex-shrink: 0;
-    align-items: flex-end;
-  }
+  .card-actions { display: flex; flex-direction: column; gap: .4rem; flex-shrink: 0; align-items: flex-end; }
 
   .wa-btn {
     background: var(--sage-pale);
     border: 1.5px solid var(--forest-light);
     border-radius: 8px;
     padding: .4rem .75rem;
-    display: flex;
-    align-items: center;
-    gap: .35rem;
-    font-size: .75rem;
-    font-weight: 500;
-    color: var(--forest);
-    text-decoration: none;
-    white-space: nowrap;
+    display: flex; align-items: center; gap: .35rem;
+    font-size: .75rem; font-weight: 500; color: var(--forest);
+    text-decoration: none; white-space: nowrap;
     transition: background .2s;
-    cursor: pointer;
   }
   .wa-btn:hover { background: #d8e8d0; }
 
-  .status-btns {
-    display: flex;
-    gap: .3rem;
-  }
-
+  .status-btns { display: flex; gap: .3rem; }
   .sbtn {
-    border: none;
-    border-radius: 7px;
-    padding: .35rem .6rem;
-    font-family: 'DM Sans', sans-serif;
-    font-size: .72rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: opacity .15s, transform .1s;
-    white-space: nowrap;
+    border: none; border-radius: 7px; padding: .35rem .6rem;
+    font-family: 'DM Sans', sans-serif; font-size: .72rem; font-weight: 500;
+    cursor: pointer; transition: opacity .15s, transform .1s; white-space: nowrap;
   }
   .sbtn:hover { opacity: .85; }
   .sbtn:active { transform: scale(.96); }
-  .sbtn.active { opacity: 1; font-weight: 700; outline: 2px solid currentColor; outline-offset: 1px; }
+  .sbtn.active { font-weight: 700; outline: 2px solid currentColor; outline-offset: 1px; }
+  .sbtn-ok { background: #e8f5e2; color: #3a6b2a; }
+  .sbtn-re { background: var(--honey-pale); color: #8a6020; }
+  .sbtn-no { background: #fde8e6; color: #9b2c22; }
 
-  .sbtn-ok  { background: #e8f5e2; color: #3a6b2a; }
-  .sbtn-re  { background: var(--honey-pale); color: #8a6020; }
-  .sbtn-no  { background: #fde8e6; color: #9b2c22; }
-
-  /* NO PHONE */
   .no-phone-badge {
-    font-size: .72rem;
-    background: var(--honey-pale);
-    border: 1px solid #e2c99a;
-    color: var(--honey);
-    border-radius: 6px;
-    padding: .25rem .55rem;
-    white-space: nowrap;
-    flex-shrink: 0;
+    font-size: .72rem; background: var(--honey-pale);
+    border: 1px solid #e2c99a; color: var(--honey);
+    border-radius: 6px; padding: .25rem .55rem; white-space: nowrap; flex-shrink: 0;
   }
 
-  /* FADE */
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(10px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
   .fade { animation: fadeUp .4s ease both; }
 
   footer {
-    text-align: center;
-    padding: 2rem 1.5rem;
-    font-size: .75rem;
-    color: var(--ink-muted);
-    border-top: 1px solid var(--cream-alt);
-    margin-top: 1rem;
+    text-align: center; padding: 2rem 1.5rem;
+    font-size: .75rem; color: var(--ink-muted);
+    border-top: 1px solid var(--cream-alt); margin-top: 1rem;
   }
 </style>
 </head>
@@ -315,16 +228,15 @@
 </header>
 
 <div class="main">
-
   <div class="date-section fade">
     <span class="date-label">Selecione o dia</span>
     <div class="date-controls">
       <input type="date" id="datePicker">
       <div style="display:flex;gap:.4rem">
-        <button class="btn-nav" onclick="changeDay(-1)" title="Dia anterior">
+        <button class="btn-nav" onclick="changeDay(-1)">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
         </button>
-        <button class="btn-nav" onclick="changeDay(1)" title="Próximo dia">
+        <button class="btn-nav" onclick="changeDay(1)">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
         </button>
       </div>
@@ -332,12 +244,11 @@
   </div>
 
   <div id="content">
-    <div class="status">
+    <div class="status-msg">
       <div class="status-icon">📅</div>
       Selecione uma data para ver os agendamentos do dia.
     </div>
   </div>
-
 </div>
 
 <footer>Nathália Machado · Ferramenta interna de confirmação de agendamentos</footer>
@@ -350,141 +261,114 @@ const SHEET_URL   = 'https://script.google.com/macros/s/AKfycbz-bUTC-ZzKd3I92t33
 const DIAS  = ['Domingo','Segunda-Feira','Terça-Feira','Quarta-Feira','Quinta-Feira','Sexta-Feira','Sábado'];
 const MESES = ['janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'];
 
-// Cache de status para o dia carregado { "YYYY-MM-DD__Nome": "confirmado"|"cancelado"|"reagendar" }
 let statusCache = {};
-let currentDate = '';
 
-function formatDate(dateStr) {
-  const [y, m, d] = dateStr.split('-');
-  return `${d}/${m}/${y}`;
+function formatDate(d) {
+  const [y,m,dd] = d.split('-');
+  return `${dd}/${m}/${y}`;
 }
-
-function getDiaSemana(dateStr) {
-  const [y, m, d] = dateStr.split('-').map(Number);
-  return DIAS[new Date(y, m - 1, d).getDay()];
+function getDiaSemana(d) {
+  const [y,m,dd] = d.split('-').map(Number);
+  return DIAS[new Date(y, m-1, dd).getDay()];
 }
-
-function parseTitle(title) {
-  const match = title.trim().match(/^(.*?)\s+(\d{8,13})$/);
-  if (match) return { name: match[1].trim(), phone: match[2] };
-  return { name: title.trim(), phone: null };
+function parseTitle(t) {
+  const match = t.trim().match(/^(.*?)\s+(\d{8,13})$/);
+  return match ? { name: match[1].trim(), phone: match[2] } : { name: t.trim(), phone: null };
 }
-
-function formatPhone(phone) {
-  let p = phone.replace(/\D/g, '');
-  if (!p.startsWith('55')) p = '55' + p;
-  return p;
+function formatPhone(p) {
+  p = p.replace(/\D/g,'');
+  return p.startsWith('55') ? p : '55'+p;
 }
-
-function formatTime(dateTimeStr) {
-  if (!dateTimeStr) return '';
-  const match = dateTimeStr.match(/T(\d{2}:\d{2})/);
-  return match ? match[1] : '';
+function formatTime(s) {
+  if (!s) return '';
+  const m = s.match(/T(\d{2}:\d{2})/);
+  return m ? m[1] : '';
 }
-
-function buildWhatsApp(phone, name, dateStr, time) {
-  const diaSemana = getDiaSemana(dateStr);
-  const dataFormatada = formatDate(dateStr);
-  const msg = `*_ASSESSORIA - RAFAEL:_*\nOlá! Tudo bem?\nEstou passando para confirmar o atendimento\nPaciente: ${name}\nData: ${diaSemana}, ${dataFormatada}\nHorário: ${time}\n\n> Caso haja necessidade de desmarcar, é importante avisar com pelo menos 12 horas de antecedência. Do contrário, será necessário cobrar o valor integral da sessão. Obrigado\n\nResponda:\n* *1* para Confirmar\n* *2* para Remarcar\n* *3* para Cancelar`;
+function buildWA(phone, name, dateStr, time) {
+  const msg = `*_ASSESSORIA - RAFAEL:_*\nOlá! Tudo bem?\nEstou passando para confirmar o atendimento\nPaciente: ${name}\nData: ${getDiaSemana(dateStr)}, ${formatDate(dateStr)}\nHorário: ${time}\n\n> Caso haja necessidade de desmarcar, é importante avisar com pelo menos 12 horas de antecedência. Do contrário, será necessário cobrar o valor integral da sessão. Obrigado\n\nResponda:\n* *1* para Confirmar\n* *2* para Remarcar\n* *3* para Cancelar`;
   return `https://wa.me/${formatPhone(phone)}?text=${encodeURIComponent(msg)}`;
 }
 
-// Busca status salvos na planilha para o dia
-async function fetchStatus(dateStr) {
+// Salva status via GET
+function saveStatus(dateStr, name, phone, status) {
+  const url = `${SHEET_URL}?action=set&date=${encodeURIComponent(dateStr)}&name=${encodeURIComponent(name)}&phone=${encodeURIComponent(phone||'')}&status=${encodeURIComponent(status)}`;
+  fetch(url).catch(() => {});
+}
+
+// Busca status da planilha em segundo plano e aplica nos cards já renderizados
+async function loadStatusInBackground(dateStr) {
   try {
-    const res = await fetch(`${SHEET_URL}?date=${dateStr}`);
+    const res  = await fetch(`${SHEET_URL}?action=get&date=${encodeURIComponent(dateStr)}`);
     const data = await res.json();
-    if (data.ok) statusCache = data.data || {};
-  } catch (e) {
-    statusCache = {};
-  }
-}
-
-// Salva status na planilha e atualiza visual
-async function setStatus(dateStr, name, phone, newStatus, cardEl) {
-  // Atualiza visual imediatamente
-  statusCache[`${dateStr}__${name}`] = newStatus;
-  applyStatusToCard(cardEl, name, dateStr, newStatus);
-
-  // Envia para planilha
-  try {
-    await fetch(SHEET_URL, {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        action: 'setStatus',
-        data: { date: dateStr, name, phone: phone || '', status: newStatus }
-      })
+    if (!data.ok) return;
+    statusCache = data.data || {};
+    // Aplica nos cards já na tela
+    document.querySelectorAll('.patient-card[data-name]').forEach(card => {
+      const name   = card.dataset.name;
+      const status = statusCache[name] || '';
+      applyStatus(card, name, dateStr, status, false);
     });
-  } catch (e) {
-    console.warn('Erro ao salvar status:', e);
-  }
+  } catch (e) {}
 }
 
-// Aplica cor e botão ativo no card
-function applyStatusToCard(cardEl, name, dateStr, status) {
-  cardEl.className = 'patient-card fade';
-  if (status) cardEl.classList.add(`s-${status}`);
+function applyStatus(card, name, dateStr, status, save) {
+  // Atualiza cache local
+  if (status) statusCache[name] = status;
+  else delete statusCache[name];
 
-  // Atualiza estado ativo dos botões
-  cardEl.querySelectorAll('.sbtn').forEach(btn => {
+  // Cor do card
+  card.className = 'patient-card' + (status ? ` s-${status}` : '');
+  card.dataset.name = name;
+
+  // Botões ativos
+  card.querySelectorAll('.sbtn').forEach(btn => {
     btn.classList.toggle('active', btn.dataset.status === status);
   });
+
+  if (save) saveStatus(dateStr, name, card.dataset.phone || '', status);
 }
 
 async function fetchEvents(dateStr) {
-  const [y, m, d] = dateStr.split('-').map(Number);
-  const timeMin = new Date(y, m - 1, d, 0, 0, 0).toISOString();
-  const timeMax = new Date(y, m - 1, d, 23, 59, 59).toISOString();
-
-  const url = `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(CALENDAR_ID)}/events`
-    + `?key=${API_KEY}`
-    + `&timeMin=${encodeURIComponent(timeMin)}`
-    + `&timeMax=${encodeURIComponent(timeMax)}`
-    + `&singleEvents=true`
-    + `&orderBy=startTime`;
-
-  const res = await fetch(url);
-  if (!res.ok) throw new Error(`Erro ${res.status}: ${res.statusText}`);
-  const data = await res.json();
-  return data.items || [];
+  const [y,m,d] = dateStr.split('-').map(Number);
+  const tMin = new Date(y,m-1,d,0,0,0).toISOString();
+  const tMax = new Date(y,m-1,d,23,59,59).toISOString();
+  const url  = `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(CALENDAR_ID)}/events`
+    + `?key=${API_KEY}&timeMin=${encodeURIComponent(tMin)}&timeMax=${encodeURIComponent(tMax)}&singleEvents=true&orderBy=startTime`;
+  const res  = await fetch(url);
+  if (!res.ok) throw new Error(`Erro ${res.status}`);
+  return (await res.json()).items || [];
 }
 
 function renderPatients(events, dateStr) {
   const container = document.getElementById('content');
+  statusCache = {};
 
-  if (events.length === 0) {
-    container.innerHTML = `<div class="status fade"><div class="status-icon">🗓️</div>Nenhum agendamento encontrado para este dia.</div>`;
+  if (!events.length) {
+    container.innerHTML = `<div class="status-msg fade"><div class="status-icon">🗓️</div>Nenhum agendamento encontrado para este dia.</div>`;
     return;
   }
 
-  const diaSemana = getDiaSemana(dateStr);
-  const [y, m, d] = dateStr.split('-');
-  const dataLabel = `${d} de ${MESES[parseInt(m)-1]} de ${y}`;
-
+  const [y,m,d] = dateStr.split('-');
   container.innerHTML = `
     <div class="day-header fade">
-      <span class="day-title">${diaSemana}</span>
-      <span class="day-count">${dataLabel} · ${events.length} agendamento${events.length > 1 ? 's' : ''}</span>
+      <span class="day-title">${getDiaSemana(dateStr)}</span>
+      <span class="day-count">${d} de ${MESES[parseInt(m)-1]} de ${y} · ${events.length} agendamento${events.length>1?'s':''} <span class="spinner-sm" id="statusSpinner"></span></span>
     </div>
     <div class="patients-list" id="patientsList"></div>`;
 
   const list = document.getElementById('patientsList');
 
   events.forEach((ev, i) => {
-    const title  = ev.summary || 'Sem título';
-    const { name, phone } = parseTitle(title);
-    const startDt = ev.start?.dateTime || ev.start?.date || '';
-    const time    = formatTime(startDt);
-    const savedStatus = statusCache[`${dateStr}__${name}`] || '';
+    const { name, phone } = parseTitle(ev.summary || '');
+    const time = formatTime(ev.start?.dateTime || ev.start?.date || '');
 
     const card = document.createElement('div');
-    card.className = `patient-card fade${savedStatus ? ' s-' + savedStatus : ''}`;
-    card.style.animationDelay = `${i * 0.05}s`;
+    card.className = 'patient-card fade';
+    card.dataset.name  = name;
+    card.dataset.phone = phone || '';
+    card.style.animationDelay = `${i * 0.04}s`;
 
     if (phone) {
-      const waUrl = buildWhatsApp(phone, name, dateStr, time);
       card.innerHTML = `
         <div class="patient-info">
           <div class="patient-time">
@@ -495,25 +379,22 @@ function renderPatients(events, dateStr) {
           <div class="patient-phone">${phone}</div>
         </div>
         <div class="card-actions">
-          <a href="${waUrl}" target="_blank" class="wa-btn">
+          <a href="${buildWA(phone, name, dateStr, time)}" target="_blank" class="wa-btn">
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.14 12 19.79 19.79 0 0 1 1.07 3.4 2 2 0 0 1 3.04 1.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21 16.92z"/></svg>
             Enviar
           </a>
           <div class="status-btns">
-            <button class="sbtn sbtn-ok${savedStatus === 'confirmado' ? ' active' : ''}" data-status="confirmado">✓ Confirmado</button>
-            <button class="sbtn sbtn-re${savedStatus === 'reagendar' ? ' active' : ''}" data-status="reagendar">↺ Reagendar</button>
-            <button class="sbtn sbtn-no${savedStatus === 'cancelado' ? ' active' : ''}" data-status="cancelado">✕ Cancelado</button>
+            <button class="sbtn sbtn-ok" data-status="confirmado">✓ Confirmado</button>
+            <button class="sbtn sbtn-re" data-status="reagendar">↺ Reagendar</button>
+            <button class="sbtn sbtn-no" data-status="cancelado">✕ Cancelado</button>
           </div>
         </div>`;
 
-      // Eventos dos botões de status
       card.querySelectorAll('.sbtn').forEach(btn => {
         btn.addEventListener('click', () => {
-          const s = btn.dataset.status;
-          // Se clicar no mesmo status ativo, desfaz
-          const current = statusCache[`${dateStr}__${name}`] || '';
-          const next = current === s ? '' : s;
-          setStatus(dateStr, name, phone, next, card);
+          const cur  = statusCache[name] || '';
+          const next = cur === btn.dataset.status ? '' : btn.dataset.status;
+          applyStatus(card, name, dateStr, next, true);
         });
       });
 
@@ -532,36 +413,35 @@ function renderPatients(events, dateStr) {
 
     list.appendChild(card);
   });
+
+  // Carrega status em segundo plano — não bloqueia a exibição
+  loadStatusInBackground(dateStr).finally(() => {
+    const s = document.getElementById('statusSpinner');
+    if (s) s.remove();
+  });
 }
 
 async function loadDay(dateStr) {
-  currentDate = dateStr;
   const container = document.getElementById('content');
-  container.innerHTML = `<div class="status"><div class="spinner"></div>Buscando agendamentos...</div>`;
-
+  // Mostra spinner pequeno só na primeira carga (se content estiver vazio)
+  if (!document.getElementById('patientsList')) {
+    container.innerHTML = `<div class="status-msg"><div class="spinner-sm" style="width:28px;height:28px;border-width:3px;display:block;margin:0 auto .75rem"></div>Buscando agendamentos...</div>`;
+  }
   try {
-    const [events] = await Promise.all([
-      fetchEvents(dateStr),
-      fetchStatus(dateStr)
-    ]);
+    const events = await fetchEvents(dateStr);
     renderPatients(events, dateStr);
   } catch (err) {
-    container.innerHTML = `
-      <div class="status">
-        <div class="status-icon">⚠️</div>
-        Erro ao buscar agenda.<br>
-        <small style="color:var(--ink-muted)">${err.message}</small>
-      </div>`;
+    container.innerHTML = `<div class="status-msg"><div class="status-icon">⚠️</div>Erro ao buscar agenda.<br><small>${err.message}</small></div>`;
   }
 }
 
 function changeDay(offset) {
   const picker = document.getElementById('datePicker');
   if (!picker.value) { setTomorrow(); return; }
-  const [y, m, d] = picker.value.split('-').map(Number);
-  const date = new Date(y, m - 1, d);
-  date.setDate(date.getDate() + offset);
-  const val = `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,'0')}-${String(date.getDate()).padStart(2,'0')}`;
+  const [y,m,d] = picker.value.split('-').map(Number);
+  const dt = new Date(y, m-1, d);
+  dt.setDate(dt.getDate() + offset);
+  const val = `${dt.getFullYear()}-${String(dt.getMonth()+1).padStart(2,'0')}-${String(dt.getDate()).padStart(2,'0')}`;
   picker.value = val;
   loadDay(val);
 }
@@ -574,12 +454,11 @@ function setTomorrow() {
   loadDay(val);
 }
 
-document.getElementById('datePicker').addEventListener('change', (e) => {
+document.getElementById('datePicker').addEventListener('change', e => {
   if (e.target.value) loadDay(e.target.value);
 });
 
 setTomorrow();
 </script>
-
 </body>
 </html>
