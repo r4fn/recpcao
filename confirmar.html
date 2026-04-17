@@ -319,6 +319,12 @@ async function loadStatusInBackground(dateStr) {
         statusCache[name] = status;
       }
     }
+    // Aplica nos cards já renderizados na tela
+    document.querySelectorAll('.patient-card[data-name]').forEach(card => {
+      const name   = card.dataset.name;
+      const status = statusCache[name] || '';
+      applyStatus(card, name, dateStr, status, false);
+    });
   } catch (e) {
     statusCache = {};
   }
