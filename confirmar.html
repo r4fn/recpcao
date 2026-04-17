@@ -352,7 +352,7 @@ function renderPatients(events, dateStr) {
   container.innerHTML = `
     <div class="day-header fade">
       <span class="day-title">${getDiaSemana(dateStr)}</span>
-      <span class="day-count">${d} de ${MESES[parseInt(m)-1]} de ${y} · ${events.length} agendamento${events.length>1?'s':''} <span class="spinner-sm" id="statusSpinner"></span></span>
+      <span class="day-count">${d} de ${MESES[parseInt(m)-1]} de ${y} · ${events.length} agendamento${events.length>1?'s':''}</span>
     </div>
     <div class="patients-list" id="patientsList"></div>`;
 
@@ -385,7 +385,7 @@ function renderPatients(events, dateStr) {
           </a>
           <div class="status-btns">
             <button class="sbtn sbtn-ok" data-status="confirmado">✓ Confirmado</button>
-            <button class="sbtn sbtn-re" data-status="reagendar">↺ Reagendar</button>
+            <button class="sbtn sbtn-re" data-status="reagendar">↺ Reagendado</button>
             <button class="sbtn sbtn-no" data-status="cancelado">✕ Cancelado</button>
           </div>
         </div>`;
@@ -414,21 +414,18 @@ function renderPatients(events, dateStr) {
     list.appendChild(card);
   });
 
-  // Carrega status em segundo plano — não bloqueia a exibição
-  loadStatusInBackground(dateStr).finally(() => {
-    const s = document.getElementById('statusSpinner');
-    if (s) s.remove();
-  });
+  // Status já carregado antes de renderizar
 }
 
 async function loadDay(dateStr) {
   const container = document.getElementById('content');
-  // Mostra spinner pequeno só na primeira carga (se content estiver vazio)
-  if (!document.getElementById('patientsList')) {
-    container.innerHTML = `<div class="status-msg"><div class="spinner-sm" style="width:28px;height:28px;border-width:3px;display:block;margin:0 auto .75rem"></div>Buscando agendamentos...</div>`;
-  }
+  // Mostra spinner enquanto carrega tudo
+  container.innerHTML = `<div class="status-msg"><div class="spinner-sm" style="width:28px;height:28px;border-width:3px;display:block;margin:0 auto .75rem"></div>Buscando agendamentos...</div>`;
   try {
-    const events = await fetchEvents(dateStr);
+    const [events] = await Promise.all([
+      fetchEvents(dateStr),
+      loadStatusInBackground(dateStr)
+    ]);
     renderPatients(events, dateStr);
   } catch (err) {
     container.innerHTML = `<div class="status-msg"><div class="status-icon">⚠️</div>Erro ao buscar agenda.<br><small>${err.message}</small></div>`;
