@@ -438,14 +438,11 @@ function renderPatients(events, dateStr) {
 
 async function loadDay(dateStr) {
   const container = document.getElementById('content');
-  // Mostra spinner enquanto carrega tudo
   container.innerHTML = `<div class="status-msg"><div class="spinner-sm" style="width:28px;height:28px;border-width:3px;display:block;margin:0 auto .75rem"></div>Buscando agendamentos...</div>`;
   try {
-    const [events] = await Promise.all([
-      fetchEvents(dateStr),
-      loadStatusInBackground(dateStr)
-    ]);
+    const events = await fetchEvents(dateStr);
     renderPatients(events, dateStr);
+    await loadStatusInBackground(dateStr);
   } catch (err) {
     container.innerHTML = `<div class="status-msg"><div class="status-icon">⚠️</div>Erro ao buscar agenda.<br><small>${err.message}</small></div>`;
   }
