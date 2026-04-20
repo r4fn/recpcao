@@ -288,8 +288,8 @@ function formatTime(s) {
   return m ? m[1] : '';
 }
 function buildWA(phone, name, dateStr, time) {
-  const msg = `*_ASSESSORIA - RAFAEL:_*\nOlá! Tudo bem?\nEstou passando para confirmar o atendimento\nPaciente: ${name}\nData: ${getDiaSemana(dateStr)}, ${formatDate(dateStr)}\nHorário: ${time}\n\n> Caso haja necessidade de desmarcar, é importante avisar com pelo menos 12 horas de antecedência. Do contrário, será necessário cobrar o valor integral da sessão. Obrigado\n\nResponda:\n* *1* para Confirmar\n* *2* para Remarcar\n* *3* para Cancelar`;
-  return `https://web.whatsapp.com/send?phone=${formatPhone(phone)}&text=${encodeURIComponent(msg)}`;
+  const msg = `Olá, aqui é da Clínica Medvance.\nEstamos entrando em contato para confirmar o seu agendamento com a fonoaudióloga Nathália Machado:\nPaciente: ${name}\nData: ${getDiaSemana(dateStr)}, ${formatDate(dateStr)}\nHorário: ${time}\n\n> Caso haja necessidade de desmarcar, é importante avisar com pelo menos 12 horas de antecedência. Do contrário, será necessário cobrar o valor integral da sessão. Obrigado\n\nResponda:\n* *1* para Confirmar\n* *2* para Remarcar\n* *3* para Cancelar`;
+  return `https://wa.me/${formatPhone(phone)}?text=${encodeURIComponent(msg)}`;
 }
 
 // Salva status via GET
