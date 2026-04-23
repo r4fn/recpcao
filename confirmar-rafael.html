@@ -277,8 +277,8 @@ function getDiaSemana(d) {
 function parseTitle(t) {
   const match = t.trim().match(/^(.*?)\s+(\d{8,13})$/);
   const name = match ? match[1].trim() : t.trim();
-  const clean = name.replace(/[\u{1F000}-\u{1FFFF}\u{2600}-\u{27FF}\uFE0F]/gu, '').trim();
-  return match ? { name: clean, phone: match[2] } : { name: clean, phone: null };
+  const cleanName = name.replace(/[\u{1F000}-\u{1FFFF}\u{2600}-\u{27FF}\uFE0F]/gu, '').trim();
+  return match ? { name, cleanName, phone: match[2] } : { name, cleanName, phone: null };
 }
 function formatPhone(p) {
   p = p.replace(/\D/g,'');
@@ -382,7 +382,7 @@ function renderPatients(events, dateStr) {
   const list = document.getElementById('patientsList');
 
   events.forEach((ev, i) => {
-    const { name, phone } = parseTitle(ev.summary || '');
+    const { name, cleanName, phone } = parseTitle(ev.summary || '');
     const time = formatTime(ev.start?.dateTime || ev.start?.date || '');
 
     const card = document.createElement('div');
@@ -402,7 +402,7 @@ function renderPatients(events, dateStr) {
             <div class="patient-name">${name}</div>
             <div class="patient-phone">${phone}</div>
           </div>
-          <a href="${buildWA(phone, name, dateStr, time)}" target="_blank" class="wa-btn">
+          <a href="${buildWA(phone, cleanName, dateStr, time)}" target="_blank" class="wa-btn">
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.14 12 19.79 19.79 0 0 1 1.07 3.4 2 2 0 0 1 3.04 1.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21 16.92z"/></svg>
             Enviar
           </a>
