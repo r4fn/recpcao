@@ -276,7 +276,9 @@ function getDiaSemana(d) {
 }
 function parseTitle(t) {
   const match = t.trim().match(/^(.*?)\s+(\d{8,13})$/);
-  return match ? { name: match[1].trim(), phone: match[2] } : { name: t.trim(), phone: null };
+  const name = match ? match[1].trim() : t.trim();
+  const clean = name.replace(/[\u{1F000}-\u{1FFFF}\u{2600}-\u{27FF}\uFE0F]/gu, '').trim();
+  return match ? { name: clean, phone: match[2] } : { name: clean, phone: null };
 }
 function formatPhone(p) {
   p = p.replace(/\D/g,'');
